@@ -49,7 +49,7 @@ function getUserInfo() {
 
     axios
       .post("https://frontend-take-home.fetchrewards.com/form", body)
-      .then((res) => console.log(1, res))
+      .then((res) => alert("User form successfully created"))
       .catch((err) => console.log(err));
   }
 
