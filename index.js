@@ -1,29 +1,62 @@
-var objPeople = [
-  {
-    firstName: "ben",
-    lastName: "sal",
-    password: "codify",
-    email: "sam@codify.com",
-    password: "Bama",
-  },
+const newUser = document.querySelector("#new-user");
+const firstNameInput = document.querySelector("#first");
+const lastNameInput = document.querySelector("#last");
+const emailInput = document.querySelector("#mail");
+const passwordInput = document.querySelector("#password");
+const confirmPasswordInput = document.querySelector("#password");
+
+const inputs = [
+  firstNameInput,
+  lastNameInput,
+  emailInput,
+  passwordInput,
+  confirmPasswordInput,
 ];
 
-function getInfo() {
-  let firstName = document.getElementById("first").value;
-  let lastName = document.getElementById("last").value;
-  let email = document.getElementById("Email").value;
-  let password = document.getElementById("password");
+inputs.forEach((input) => {
+  input.addEventListener("change", (e) => {
+    input.value = e.target.value;
+    console.log(input.value);
+  });
+});
 
-  for (let i = 0; i < objPeople.length; i++) {
-    if (
-      (firstName =
-        objPeople[i].firstName &&
-        lastName == objPeople[i].lastName &&
-        password == objPeople[i].password &&
-        email == objPeople[i].email)
-    ) {
-      return;
-    }
+function getUserInfo() {
+  axios
+    .get("http://https://frontend-take-home.fetchrewards.com/form")
+    .then((res) => {
+      const user = res.data[0];
+
+      const {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
+        confirmPassword,
+        occupation,
+        state,
+      } = user;
+    });
+
+  function postInfo() {
+    let body = {
+      firstName: firstNameInput.value,
+      lastName: lastNameInput.value,
+      email: emailInput.value,
+      password: passwordInput.value,
+      occupation: occupationInput.value,
+      state: stateInput.value,
+    };
+
+    axios
+      .post("https://frontend-take-home.fetchrewards.com/form", body)
+      .then((res) => console.log(1, res))
+      .catch((err) => console.log(err));
   }
-  console.log("You have successfully created a user login");
+
+  profileForm.addEventListener("submt", (e) => {
+    e.preventDefault();
+    postInfo();
+  });
+
+  getUserInfo();
 }
